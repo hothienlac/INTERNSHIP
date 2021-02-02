@@ -1,0 +1,15 @@
+syntax = "proto3";
+ 
+package picture;
+ 
+service GetPose {
+    rpc getPose(Picture) returns (Pose){}
+}
+ 
+message Picture {
+    string picture = 1;
+}
+
+message Pose {
+    string pose = 1;
+}
