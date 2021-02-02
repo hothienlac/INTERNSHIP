@@ -9,10 +9,13 @@ from multi_threading.parallel_runner import ParallelRunner
 from multi_threading.jobs_generator import job_generator
 
 dirname = os.path.dirname(__file__)
-sit = os.path.join(dirname, 'data/khoi/combined/sit')
-middle = os.path.join(dirname, 'data/khoi/combined/middle')
-stand =  os.path.join(dirname, 'data/khoi/combined/stand')
-output = os.path.join(dirname, 'data/khoi/combined/data_parallel.csv')
+sit = os.path.join(dirname, 'data/all_data/sit')
+middle = os.path.join(dirname, 'data/all_data/middle')
+stand =  os.path.join(dirname, 'data/all_data/stand')
+output = os.path.join(dirname, 'data/all_data/data.csv')
+
+
+progress_bar = tqdm()
 
 
 COLUMN_NAMES = [
@@ -57,7 +60,9 @@ def add_one_row(data_frame, image, position):
     features = pose.get_normalized_position()
     features.insert(0, position)
 
-    data_frame.loc[data_frame.shape[0]] = features
+    data_frame.loc[len(data_frame)] = features
+
+    progress_bar.update()
 
 
 def process_image(data_frame, position):
@@ -85,6 +90,8 @@ def main():
     add_data(data_frame, stand_images, STAND)
 
     data_frame.to_csv(output, index=False, encoding='utf-8')
+
+    progress_bar.close()
 
 
 if __name__ == '__main__':

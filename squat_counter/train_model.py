@@ -4,7 +4,7 @@ from tensorflow import one_hot
 
 from posture_estimator.posture_estimator import PostureEstimator
 
-DATA_PATH = './data/khoi/combined/data_parallel.csv'
+DATA_PATH = './data/all_data/data.csv'
 
 
 def main():
@@ -16,7 +16,7 @@ def main():
     X = data[features]
     y = data['position']
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     y_train = one_hot(y_train, 3)
     y_test = one_hot(y_test, 3)
 

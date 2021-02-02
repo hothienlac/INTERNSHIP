@@ -11,8 +11,8 @@ from posture_estimator.posture_estimator import PostureEstimator
 
 
 dirname = os.path.dirname(__file__)
-input = os.path.join(dirname, 'data/full.mp4')
-output = os.path.join(dirname, 'data/full-count-squat.mp4')
+input = os.path.join(dirname, 'data/x.mp4')
+output = os.path.join(dirname, 'data/x-count-squat.mp4')
 
 SIT = 'SIT'
 MIDDLE = 'MIDDLE'

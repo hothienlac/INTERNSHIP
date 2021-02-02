@@ -25,10 +25,10 @@ def block(x, units):
 def get_model():
     input = Input(shape=(24,))
     x = block(input, 64)
-    x = block(x, 256)
+    x = block(x, 512)
     x = block(x, 1024)
     x = block(x, 1024)
-    x = block(x, 256)
+    x = block(x, 512)
     x = Dense(3)(x)
     output = Activation('softmax')(x)
 
@@ -38,7 +38,7 @@ def get_model():
 
 
 class PostureEstimator:
-    
+
     def __init__(self, new_model=False):
         if new_model:
             self.__create_new_model__()

@@ -2,13 +2,13 @@
 SIT = 'SIT'
 MIDDLE = 'MIDDLE'
 STAND = 'STAND'
-STAND_TEMPERATURE = 5
-SIT_TEMPERATURE = 5
+STAND_TEMPERATURE = 3
+SIT_TEMPERATURE = 3
 
 
 
 class SquatCounter:
-    
+
     def __init__(self):
         self.curent_posture = STAND
         self.count = 0
