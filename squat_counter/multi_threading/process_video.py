@@ -3,7 +3,7 @@ from multi_threading.multi_worker_handler import MultiWorkerHandler
 from multi_threading.jobs_generator import job_generator
 
 
-NUMBER_OF_FEATURES = 24
+NUMBER_OF_FEATURES = 16
 NUMBER_OF_WORKERS = 12
 QUEUE_SIZE = 24
 
@@ -27,12 +27,12 @@ def process_frame_factory(function_to_work, handler):
     return lambda args: process_frame(function_to_work, handler, args)
 
 
-def process_video(function_to_work, video, video_writer):
-    handler = MultiWorkerHandler(add_frame_to_video_writer_factory(video_writer))
+def process_video(function_to_work, video, video_writer, in_order=True):
     video_generator = video_generator_with_frame_index(video)
-    process_frame_with_handler = process_frame_factory(function_to_work, handler)
 
-    jobs = job_generator(process_frame_with_handler, video_generator)
+    handler = MultiWorkerHandler(add_frame_to_video_writer_factory(video_writer), in_order)
+    function_to_work_2 = process_frame_factory(function_to_work, handler)
+
+    jobs = job_generator(function_to_work_2, video_generator)
     parallel_runner = ParallelRunner(NUMBER_OF_WORKERS, QUEUE_SIZE)
     parallel_runner.start(jobs)
-    handler.done()

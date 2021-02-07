@@ -10,7 +10,8 @@ SIT_TEMPERATURE = 3
 class SquatCounter:
 
     def __init__(self):
-        self.curent_posture = STAND
+        self.init = True
+        self.flag = True
         self.count = 0
         self.stand_temperature = 0
         self.sit_temperature = 0
@@ -33,9 +34,12 @@ class SquatCounter:
     
 
     def __stand__(self):
-        if self.curent_posture == SIT:
-            self.count += 1
-        self.curent_posture = STAND
+        if self.init:
+            self.init = False
+
+        if not self.flag:
+            self.count += 0.5
+            self.flag = True
 
 
     def sit(self):
@@ -46,7 +50,13 @@ class SquatCounter:
 
 
     def __sit__(self):
-        self.curent_posture = SIT
+        if self.init:
+            self.count -= 0.5
+            self.init = False
+        
+        if self.flag:
+            self.count += 0.5
+            self.flag = False
 
 
     def middle(self):

@@ -3,16 +3,18 @@ import cv2
 import numpy as np
 
 from util.video_util import  read_video, get_dimention,get_frame_rate
-from util.video_writer import VideoWriter
+from util.video_writer import VideoPlayer
 from util.squat_counter import SquatCounter
 from posenet.client import get_pose
 from multi_threading.process_video import process_video
 from posture_estimator.posture_estimator import PostureEstimator
-from util.draw_skeleton import draw_skeleton
+
+
+squat_counter = SquatCounter()
 
 dirname = os.path.dirname(__file__)
-input = os.path.join(dirname, 'data/4.webm')
-output = os.path.join(dirname, 'data/4-count-squat.mp4')
+input = 0
+output = os.path.join(dirname, 'data/xx-count-squat.mp4')
 
 SIT = 'SIT'
 MIDDLE = 'MIDDLE'
@@ -20,13 +22,6 @@ STAND = 'STAND'
 
 model = PostureEstimator()
 
-
-
-
-
-
-
-squat_counter = SquatCounter()
 
 
 
@@ -52,8 +47,6 @@ def process_frame(frame):
     cv2.putText(frame, str(posture), (100,200), font, 5, (255, 0, 0), 5, cv2.LINE_AA)
     cv2.putText(frame, str(squat_counter.count), (100,400), font, 5, (0, 255, 0), 5, cv2.LINE_AA)
 
-    draw_skeleton(frame, pose)
-
 
 
 def main():
@@ -62,11 +55,11 @@ def main():
     if fps > 60:
         fps = 30
     dimention = get_dimention(input)
-    video_writer = VideoWriter(output, fps, dimention)
+    video_player = VideoPlayer()
     
-    process_video(process_frame, video, video_writer, in_order=True)
+    process_video(process_frame, video, video_player)
 
-    video_writer.save()
+    video_player.close()
     print('DONE')
 
 

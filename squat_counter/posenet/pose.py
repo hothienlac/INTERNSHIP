@@ -1,3 +1,22 @@
+import numpy as np
+
+
+
+def dict_to_np_array(x):
+    return np.array([x.get('x'), x.get('y')])
+
+
+
+def calculate_angle(a, b, c):
+    A, B, C = list(map(dict_to_np_array, [a,b,c]))
+
+    BA = A - B
+    BC = C - B
+
+    cosine_angle = np.dot(BA, BC) / (np.linalg.norm(BA) * np.linalg.norm(BC))
+    angle = np.arccos(cosine_angle)
+
+    return angle
 
 
 
@@ -10,10 +29,6 @@ class Pose:
 
         self.leftShoulder   =   pose[5].get('position')
         self.rightShoulder  =   pose[6].get('position')
-        self.leftElbow      =   pose[7].get('position')
-        self.rightElbow     =   pose[8].get('position')
-        self.leftWrist      =   pose[9].get('position')
-        self.rightWrist     =   pose[10].get('position')
         self.leftHip        =   pose[11].get('position')
         self.rightHip       =   pose[12].get('position')
         self.leftKnee       =   pose[13].get('position')
@@ -23,14 +38,10 @@ class Pose:
     
     
     # Return list, features are sorted
-    def get_normalized_position(self):
+    def get_features(self):
         list_of_points = [
             self.leftShoulder,
             self.rightShoulder,
-            self.leftElbow,
-            self.rightElbow,
-            self.leftWrist,
-            self.rightWrist,
             self.leftHip,
             self.rightHip,
             self.leftKnee,
@@ -56,4 +67,11 @@ class Pose:
         x = list(map(lambda a: a/scale, x))
         y = list(map(lambda a: a/scale, y))
 
-        return x+y
+        leftHipAngle = calculate_angle(self.leftShoulder, self.leftHip, self.leftKnee)
+        rightHipAngle = calculate_angle(self.rightShoulder, self.rightHip, self.rightKnee)
+        leftKneeAngle = calculate_angle(self.leftHip, self.leftKnee, self.leftAnkle)
+        rightKneeAngle = calculate_angle(self.rightHip, self.rightKnee, self.rightAnkle)
+
+        angles = [leftHipAngle, rightHipAngle, leftKneeAngle, rightKneeAngle]
+
+        return x + y + angles

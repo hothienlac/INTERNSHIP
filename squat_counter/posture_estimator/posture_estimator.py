@@ -11,7 +11,7 @@ from tensorflow.keras.models import load_model
 
 MODEL_PATH = './model'
 ACTIVATION_FUNCTION = 'relu'
-DROPOUT_RATIO = 0.2
+DROPOUT_RATIO = 0.1
 
 
 def block(x, units):
@@ -23,12 +23,9 @@ def block(x, units):
 
 
 def get_model():
-    input = Input(shape=(24,))
-    x = block(input, 64)
-    x = block(x, 512)
-    x = block(x, 1024)
-    x = block(x, 1024)
-    x = block(x, 512)
+    input = Input(shape=(20,))
+    x = block(input, 128)
+    x = block(x, 64)
     x = Dense(3)(x)
     output = Activation('softmax')(x)
 
@@ -59,7 +56,7 @@ class PostureEstimator:
         self.model.save(MODEL_PATH)
 
 
-    def fit(self, X_train, y_train, epochs=500, batch_size=512):
+    def fit(self, X_train, y_train, epochs=500, batch_size=1024):
         self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size)
     
 

@@ -9,8 +9,8 @@ from multi_threading.process_video import process_video
 
 
 dirname = os.path.dirname(__file__)
-input = os.path.join(dirname, 'data/full.mp4')
-output = os.path.join(dirname, 'data/full-with-skeleton.mp4')
+input = os.path.join(dirname, 'data/x.mp4')
+output = os.path.join(dirname, 'data/x-with-skeleton.mp4')
 
 
 

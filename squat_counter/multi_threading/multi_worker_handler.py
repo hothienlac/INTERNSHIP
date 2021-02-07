@@ -18,7 +18,8 @@ def insert_to_right_position(queue, element, compare_function):
 
 
 class MultiWorkerHandler:
-    def __init__(self, handler):
+    def __init__(self, handler, in_order=True):
+        self.in_order = in_order
         self.handler = handler
         self.queue = []
         ## call handler if new received result equal next index
@@ -28,6 +29,9 @@ class MultiWorkerHandler:
 
     # Result is in format (index, result)
     def add_to_queue(self, result):
+        if not self.in_order:
+            self.handler(result[1])
+            return
         compare_function = lambda x,y: x[0] < y[0]
         insert_to_right_position(self.queue, result, compare_function)
         self.check_queue()
@@ -46,5 +50,5 @@ class MultiWorkerHandler:
         self.next_index += 1
 
 
-    def done(self):
+    def __del__(self):
         self.progress_bar.close()

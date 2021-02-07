@@ -4,7 +4,7 @@ from tensorflow import one_hot
 
 from posture_estimator.posture_estimator import PostureEstimator
 
-DATA_PATH = './data/all_data/data.csv'
+DATA_PATH = './data/combined/data.csv'
 
 
 def main():

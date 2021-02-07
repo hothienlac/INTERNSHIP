@@ -4,7 +4,7 @@ const posenet = require('@tensorflow-models/posenet');
 
 // TENSORFLOW PARAMTER
 const imageScaleFactor = 0.5;
-const outputStride = 16;
+const outputStride = 32;
 const flipHorizontal = false;
 
 

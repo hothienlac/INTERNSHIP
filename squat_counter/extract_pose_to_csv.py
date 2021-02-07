@@ -9,10 +9,10 @@ from multi_threading.parallel_runner import ParallelRunner
 from multi_threading.jobs_generator import job_generator
 
 dirname = os.path.dirname(__file__)
-sit = os.path.join(dirname, 'data/all_data/sit')
-middle = os.path.join(dirname, 'data/all_data/middle')
-stand =  os.path.join(dirname, 'data/all_data/stand')
-output = os.path.join(dirname, 'data/all_data/data.csv')
+sit = os.path.join(dirname, 'data/combined/sit')
+middle = os.path.join(dirname, 'data/combined/middle')
+stand =  os.path.join(dirname, 'data/combined/stand')
+output = os.path.join(dirname, 'data/combined/data.csv')
 
 
 progress_bar = tqdm()
@@ -22,10 +22,6 @@ COLUMN_NAMES = [
     'position',
     'leftShoulder_x',
     'rightShoulder_x',
-    'leftElbow_x',
-    'rightElbow_x',
-    'leftWrist_x',
-    'rightWrist_x',
     'leftHip_x',
     'rightHip_x',
     'leftKnee_x',
@@ -34,32 +30,32 @@ COLUMN_NAMES = [
     'rightAnkle_x',
     'leftShoulder_y',
     'rightShoulder_y',
-    'leftElbow_y',
-    'rightElbow_y',
-    'leftWrist_y',
-    'rightWrist_y',
     'leftHip_y',
     'rightHip_y',
     'leftKnee_y',
     'rightKnee_y',
     'leftAnkle_y',
     'rightAnkle_y',
+    'leftHipAngle',
+    'rightHipAngle',
+    'leftKneeAngle',
+    'rightKneeAngle',
 ]
 
 
 SIT = 0
 MIDDLE = 1
 STAND = 2
-NUMBER_OF_FEATURES = 24
+NUMBER_OF_FEATURES = 20
 NUMBER_OF_WORKERS = 12
 QUEUE_SIZE = 24
 
 
 def add_one_row(data_frame, image, position):
     pose = get_pose(image)
-    features = pose.get_normalized_position()
+    features = pose.get_features()
     features.insert(0, position)
-
+    
     data_frame.loc[len(data_frame)] = features
 
     progress_bar.update()

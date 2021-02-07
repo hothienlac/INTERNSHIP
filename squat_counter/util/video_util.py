@@ -12,6 +12,9 @@ def read_video(path):
         if ret == False:
             break
         count += 1
+
+        if cv2.waitKey(1) & 0xFF == ord('q'): 
+            break
         
         yield frame
 
