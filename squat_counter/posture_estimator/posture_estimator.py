@@ -1,7 +1,7 @@
 import tensorflow as tf
 physical_devices = tf.config.list_physical_devices('GPU') 
 tf.config.experimental.set_memory_growth(physical_devices[0], True)
-
+import numpy as np
 
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense, BatchNormalization, Activation, Dropout
@@ -65,4 +65,4 @@ class PostureEstimator:
 
     
     def predict(self, data):
-        return self.model.predict(data)
+        return np.argmax(self.model.predict(data))

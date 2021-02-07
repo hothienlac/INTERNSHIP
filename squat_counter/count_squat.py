@@ -7,12 +7,12 @@ from util.video_writer import VideoWriter
 from util.squat_counter import SquatCounter
 from posenet.client import get_pose
 from multi_threading.process_video import process_video
-from posture_estimator.posture_estimator import PostureEstimator
+from posture_estimator.posture_estimator_random_forest import PostureEstimator
 from util.draw_skeleton import draw_skeleton
 
 dirname = os.path.dirname(__file__)
-input = os.path.join(dirname, 'data/4.webm')
-output = os.path.join(dirname, 'data/4-count-squat.mp4')
+input = os.path.join(dirname, 'data/xx.mp4')
+output = os.path.join(dirname, 'data/xx-count-squat.mp4')
 
 SIT = 'SIT'
 MIDDLE = 'MIDDLE'
@@ -22,19 +22,14 @@ model = PostureEstimator()
 
 
 
-
-
-
-
 squat_counter = SquatCounter()
 
 
 
 def decode(code):
-    max_value_index = np.argmax(code)
     dictionary = [SIT, MIDDLE, STAND]
     
-    return dictionary[max_value_index]
+    return dictionary[int(code)]
 
 
 

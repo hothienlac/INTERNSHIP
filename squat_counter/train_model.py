@@ -1,8 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from tensorflow import one_hot
+# from tensorflow import one_hot
 
-from posture_estimator.posture_estimator import PostureEstimator
+from posture_estimator.posture_estimator_random_forest import PostureEstimator
 
 DATA_PATH = './data/combined/data.csv'
 
@@ -17,8 +17,8 @@ def main():
     y = data['position']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-    y_train = one_hot(y_train, 3)
-    y_test = one_hot(y_test, 3)
+    # y_train = one_hot(y_train, 3)
+    # y_test = one_hot(y_test, 3)
 
     pose_estimator = PostureEstimator(new_model=True)
     pose_estimator.fit(X_train, y_train)
