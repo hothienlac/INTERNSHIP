@@ -20,26 +20,16 @@ progress_bar = tqdm()
 
 COLUMN_NAMES = [
     'position',
-    'leftShoulder_x',
-    'rightShoulder_x',
-    'leftHip_x',
-    'rightHip_x',
-    'leftKnee_x',
-    'rightKnee_x',
-    'leftAnkle_x',
-    'rightAnkle_x',
-    'leftShoulder_y',
-    'rightShoulder_y',
-    'leftHip_y',
-    'rightHip_y',
-    'leftKnee_y',
-    'rightKnee_y',
-    'leftAnkle_y',
-    'rightAnkle_y',
     'leftHipAngle',
     'rightHipAngle',
     'leftKneeAngle',
     'rightKneeAngle',
+    'leftShoulderKnee',
+    'rightShoulderKnee',
+    'leftShoulderAnkle',
+    'rightShoulderAnkle',
+    'leftHipAnkle',
+    'rightHipAnkle',
 ]
 
 

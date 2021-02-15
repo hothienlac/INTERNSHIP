@@ -2,8 +2,8 @@
 SIT = 'SIT'
 MIDDLE = 'MIDDLE'
 STAND = 'STAND'
-STAND_TEMPERATURE = 3
-SIT_TEMPERATURE = 3
+STAND_TEMPERATURE = 2
+SIT_TEMPERATURE = 2
 
 
 
@@ -17,20 +17,21 @@ class SquatCounter:
         self.sit_temperature = 0
     
     
-    def update(self, posture):
+    def update(self, posture, velocity):
         dictionary = {
             SIT: self.sit,
             STAND: self.stand,
             MIDDLE: self.middle,
         }
-        dictionary[posture]()
+        dictionary[posture](velocity)
 
 
-    def stand(self):
+    def stand(self, velocity):
         self.sit_temperature = 0
         self.stand_temperature += 1
         if self.stand_temperature > STAND_TEMPERATURE:
-            self.__stand__()
+            if velocity < 0:
+                self.__stand__()
     
 
     def __stand__(self):
@@ -42,11 +43,12 @@ class SquatCounter:
             self.flag = True
 
 
-    def sit(self):
+    def sit(self, velocity):
         self.stand_temperature = 0
         self.sit_temperature += 1
         if self.sit_temperature > SIT_TEMPERATURE:
-            self.__sit__()
+            if velocity > 0:
+                self.__sit__()
 
 
     def __sit__(self):
@@ -59,6 +61,6 @@ class SquatCounter:
             self.flag = False
 
 
-    def middle(self):
+    def middle(self, velocity):
         self.stand_temperature = 0
         self.sit_temperature = 0

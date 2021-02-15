@@ -20,12 +20,21 @@ def calculate_angle(a, b, c):
 
 
 
+def calculate_distance(a, b):
+    A, B = list(map(dict_to_np_array, [a,b]))
+    AB = A - B
+    return np.linalg.norm(AB)
+
+
 class Pose:
     def __init__(self, pose):
         if pose == None:
             return
 
         self.pose = pose
+
+        self.nose           =   pose[0].get('position')
+
 
         self.leftShoulder   =   pose[5].get('position')
         self.rightShoulder  =   pose[6].get('position')
@@ -72,6 +81,38 @@ class Pose:
         leftKneeAngle = calculate_angle(self.leftHip, self.leftKnee, self.leftAnkle)
         rightKneeAngle = calculate_angle(self.rightHip, self.rightKnee, self.rightAnkle)
 
-        angles = [leftHipAngle, rightHipAngle, leftKneeAngle, rightKneeAngle]
+        angles = [
+            leftHipAngle,
+            rightHipAngle,
+            leftKneeAngle,
+            rightKneeAngle,
+        ]
 
-        return x + y + angles
+        backLength = self.get_back_length()
+
+
+        leftShoulderKnee = calculate_distance(self.leftShoulder, self.leftKnee) / backLength
+        rightShoulderKnee = calculate_distance(self.rightShoulder, self.rightKnee) / backLength
+        leftShoulderAnkle = calculate_distance(self.leftShoulder, self.leftAnkle) / backLength
+        rightShoulderAnkle = calculate_distance(self.rightShoulder, self.rightAnkle) / backLength
+        leftHipAnkle = calculate_distance(self.leftHip, self.leftAnkle) / backLength
+        rightHipAnkle = calculate_distance(self.rightHip, self.rightAnkle) / backLength
+
+        distances = [
+            leftShoulderKnee,
+            rightShoulderKnee,
+            leftShoulderAnkle,
+            rightShoulderAnkle,
+            leftHipAnkle,
+            rightHipAnkle,
+        ]
+
+        return angles + distances
+
+
+    def get_back_length(self):
+        leftLength = calculate_distance(self.leftShoulder, self.leftHip)
+        rightLength = calculate_distance(self.rightShoulder, self.rightHip)
+        backLength = (leftLength + rightLength)/2
+
+        return backLength
