@@ -28,6 +28,9 @@ class Counter:
         self.sit_temperature = 0
         self.stand_temperature += 1
         if self.stand_temperature > self.STAND_TEMPERATURE_THRESHOLD:
+            if self.init:
+                self.__stand__()
+                return
             if velocity < 0:
                 self.__stand__()
     
@@ -45,8 +48,12 @@ class Counter:
         self.stand_temperature = 0
         self.sit_temperature += 1
         if self.sit_temperature > self.SIT_TEMPERATURE_THRESHOLD:
+            if self.init:
+                self.__sit__()
+                return
             if velocity > 0:
                 self.__sit__()
+                return
 
 
     def __sit__(self):
