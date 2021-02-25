@@ -14,7 +14,6 @@
     "@tensorflow-models/posenet": "^2.2.1",
     "@tensorflow/tfjs": "^3.0.0",
     "@tensorflow/tfjs-node": "^3.0.0",
-    "@tensorflow/tfjs-node-gpu": "^3.0.0",
     "canvas": "^2.6.1",
     "grpc": "^1.24.4"
   }

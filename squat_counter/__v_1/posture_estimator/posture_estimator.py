@@ -19,7 +19,7 @@ def block(x, units):
     x = BatchNormalization()(x)
     x = Activation(ACTIVATION_FUNCTION)(x)
     x = Dropout(DROPOUT_RATIO)(x)
-    return x 
+    return x
 
 
 def get_model():

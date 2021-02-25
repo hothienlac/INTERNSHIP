@@ -13,8 +13,8 @@ def main():
     features = list(data.columns.values)
     features.remove('position')
 
-    X = data[features]
-    y = data['position']
+    X = data[features].values
+    y = data['position'].values
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     # y_train = one_hot(y_train, 3)

@@ -1,19 +1,22 @@
-import threading
+from threading import Thread
 import queue
 
 
 
-class Worker(threading.Thread):
-    
-    def __init__(self, jobs, *args, **kwargs):
-        self.jobs = jobs
-        super().__init__(*args, **kwargs)
+class Worker(Thread):
 
+    def __init__(self, tasks_queue):
+        super().__init__()
+        self.tasks_queue = tasks_queue
+    
 
     def run(self):
         while True:
             try:
-                work = self.jobs.get(timeout=3)
+                task = self.tasks_queue.get(timeout=3)
             except queue.Empty:
                 return
-            work[0](*(work[1:]))
+            
+            task.run()
+
+
