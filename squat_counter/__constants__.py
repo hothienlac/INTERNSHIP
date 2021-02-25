@@ -1,6 +1,8 @@
 COLUMN_NAMES = [
     'posture',
 
+    'score',
+
     'left_shoulder_left_hip_left_knee_angle',
     'left_hip_left_knee_left_ankle_angle',
 

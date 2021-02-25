@@ -81,5 +81,5 @@ class ProcessData:
     def read_all_images_generator(files_list):
         for file in files_list:
             image = cv2.imread(file)
-            if image:
+            if image is not None:
                 yield image

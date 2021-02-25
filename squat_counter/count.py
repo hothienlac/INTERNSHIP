@@ -70,7 +70,7 @@ class Count:
 
     def process_frame(self, result):
         frame, pose = result
-        features    = pose.get_features()
+        features    = pose.get_features()[1:]
         posture     = int(self.model.predict([features]))
         back_length = pose.get_back_length()
 

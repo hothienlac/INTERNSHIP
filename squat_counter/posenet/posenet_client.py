@@ -22,7 +22,7 @@ class PosenetClient:
         grpc_payload = picture_pb2.Picture(picture=base64_encoded_image)
         grpc_result = self.stub.getPose(grpc_payload)
 
-        pose = json.loads(grpc_result.pose).get('keypoints')
+        pose = json.loads(grpc_result.pose)
 
         return Pose(pose)
 

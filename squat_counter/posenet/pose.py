@@ -1,19 +1,22 @@
 import numpy as np
+import json
 
 
 
 class Pose:
 
     def __init__(self, pose):
-        self.nose           =   pose[0].get('position')
-        self.left_shoulder   =   pose[5].get('position')
-        self.left_hip        =   pose[11].get('position')
-        self.left_knee       =   pose[13].get('position')
-        self.left_ankle      =   pose[15].get('position')
-        self.right_shoulder  =   pose[6].get('position')
-        self.right_hip       =   pose[12].get('position')
-        self.right_knee      =   pose[14].get('position')
-        self.right_ankle     =   pose[16].get('position')
+        keypoints               =   pose['keypoints']
+        self.score              =   pose['score']
+        self.nose               =   keypoints[0].get('position')
+        self.left_shoulder      =   keypoints[5].get('position')
+        self.left_hip           =   keypoints[11].get('position')
+        self.left_knee          =   keypoints[13].get('position')
+        self.left_ankle         =   keypoints[15].get('position')
+        self.right_shoulder     =   keypoints[6].get('position')
+        self.right_hip          =   keypoints[12].get('position')
+        self.right_knee         =   keypoints[14].get('position')
+        self.right_ankle        =   keypoints[16].get('position')
     
 
     def get_features(self):
@@ -48,6 +51,7 @@ class Pose:
         left_ankle_right_ankle_distancee              =   Pose.calculate_distance(self.left_ankle       , self.right_ankle) / back_length
 
         return [
+            self.score,
             left_shoulder_left_hip_left_knee_angle,
             left_hip_left_knee_left_ankle_angle,
             right_shoulder_right_hip_right_knee_angle,

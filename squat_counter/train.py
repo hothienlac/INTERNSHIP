@@ -11,8 +11,10 @@ class Train:
     
     def __init__(self, args):
         self.data = pd.read_csv(args.data)
+        self.data = self.data[self.data['score'] > 0.75]
         self.features = list(self.data.columns.values)
         self.features.remove('posture')
+        self.features.remove('score')
 
         self.model = Train.get_model(args.model)
         self.model_output = args.model_output
